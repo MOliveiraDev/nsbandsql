@@ -1,10 +1,11 @@
 package com.example.nsbandsql.Model;
 
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-public class ProductControl {
+public class ProductModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -12,10 +13,10 @@ public class ProductControl {
     public String name;
     public Long price;
 
-    public ProductControl() {
+    public ProductModel() {
     }
 
-    public ProductControl(Integer id, String name, Long price) {
+    public ProductModel(Integer id, String name, Long price) {
         this.id = id;
         this.name = name;
         this.price = price;
