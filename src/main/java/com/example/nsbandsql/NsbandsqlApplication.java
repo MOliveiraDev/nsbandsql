@@ -8,7 +8,6 @@ public class NsbandsqlApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(NsbandsqlApplication.class, args);
-
 	}
 
 }
