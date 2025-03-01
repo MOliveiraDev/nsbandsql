@@ -1,8 +1,12 @@
 package com.example.nsbandsql.Controller;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Setter
+@Getter
 @RestController
 @RequestMapping("/product")
 
@@ -21,27 +25,4 @@ public class ProductC {
 
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Long getPrice() {
-        return price;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPrice(Long price) {
-        this.price = price;
-    }
 }
