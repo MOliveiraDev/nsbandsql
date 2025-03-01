@@ -1,10 +1,10 @@
 package com.example.nsbandsql.Model;
 
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+@Entity(name = "product")
+@Table(name = "product")
 public class ProductModel {
 
     @Id
