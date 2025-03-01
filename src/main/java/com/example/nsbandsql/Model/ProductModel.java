@@ -8,7 +8,7 @@ import jakarta.persistence.*;
 public class ProductModel {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer id;
     public String name;
     public Long price;
