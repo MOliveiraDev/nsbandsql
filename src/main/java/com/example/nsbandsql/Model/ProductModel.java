@@ -3,8 +3,8 @@ package com.example.nsbandsql.Model;
 
 import jakarta.persistence.*;
 
-@Entity(name = "product")
-@Table(name = "product")
+@Entity(name = "products")
+@Table(name = "products")
 public class ProductModel {
 
     @Id
