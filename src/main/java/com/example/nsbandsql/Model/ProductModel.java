@@ -3,6 +3,8 @@ package com.example.nsbandsql.Model;
 
 import jakarta.persistence.*;
 
+import java.util.UUID;
+
 @Entity(name = "products")
 @Table(name = "products")
 public class ProductModel {

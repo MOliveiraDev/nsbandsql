@@ -5,7 +5,8 @@ CREATE TABLE products (
     name VARCHAR(255) NOT NULL,
     price DECIMAL(10,2) NOT NULL
 );
-
 SELECT * FROM products;
+
+ALTER SEQUENCE products_id_seq RESTART WITH 1;
 
 
