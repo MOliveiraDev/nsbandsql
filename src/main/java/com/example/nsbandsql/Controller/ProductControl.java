@@ -1,59 +1,61 @@
 package com.example.nsbandsql.Controller;
 
+
 import com.example.nsbandsql.Model.ProductModel;
 import com.example.nsbandsql.Repository.ProductRepository;
 import com.example.nsbandsql.dtos.ProductDto;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/products")
 public class ProductControl {
 
-    private final ProductRepository productRepository;
-
-    public ProductControl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    @Autowired
+    private ProductRepository productRepository;
 
     @GetMapping
     public ResponseEntity<List<ProductModel>> getAllProducts() {
-        return ResponseEntity.ok(productRepository.findAll());
+        List<ProductModel> products = productRepository.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(products);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getProductById(@PathVariable Integer id) {
-        return productRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> {
-                    Map<String, String> errorResponse = new HashMap<>();
-                    errorResponse.put("error", "Product not found");
-                    return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found");
-                });
+    public Object getProductById(@PathVariable Integer id) {
+        Optional<ProductModel> product = productRepository.findById(id);
+        if (product.isEmpty()){
+        return ResponseEntity.status((HttpStatus.NOT_FOUND)).body("Product not found");
+        }
+
+        return product.map(value -> ResponseEntity.status(HttpStatus.FOUND).body(value))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
+
 
     @PostMapping
     public ResponseEntity<ProductModel> save(@RequestBody ProductDto dto) {
+
         var productModel = new ProductModel();
         BeanUtils.copyProperties(dto, productModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(productRepository.save(productModel));
+        ProductModel savedProduct = productRepository.save(productModel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedProduct);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteById(@PathVariable Integer id) {
-        if (!productRepository.existsById(id)) {
-            Map<String, String> errorResponse = new HashMap<>();
-            errorResponse.put("error", "Product not found");
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(errorResponse);
+    public ResponseEntity<String> deleteProduct(@PathVariable Integer id) {
+        Optional<ProductModel> product = productRepository.findById(id);
+        if (product.isEmpty()){
+            return ResponseEntity.status((HttpStatus.NOT_FOUND)).body("Product not found");
         }
-
         productRepository.deleteById(id);
-        return ResponseEntity.noContent().build();  // Retorna HTTP 204 (No Content)
+        return ResponseEntity.status(HttpStatus.OK).body("Product deleted");
     }
+
 }
+
