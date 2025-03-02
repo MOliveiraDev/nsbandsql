@@ -68,7 +68,6 @@ public class ProductControl {
         BeanUtils.copyProperties(dto, productModel);
         productModel.setId(id);
         productRepository.save(productModel);
-        productRepository.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body(productRepository.save(productModel).toString());
     }
 
