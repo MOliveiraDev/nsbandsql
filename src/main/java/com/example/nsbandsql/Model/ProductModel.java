@@ -1,29 +1,38 @@
 package com.example.nsbandsql.Model;
 
-
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 
-import java.util.UUID;
-
-@Entity(name = "products")
+@Entity
 @Table(name = "products")
 public class ProductModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id;
-    public String name;
-    public Long price;
+    private Integer id;
 
-    public ProductModel() {
-    }
+    @Column(nullable = false)
+    private String name;
 
-    public ProductModel(Integer id, String name, Long price) {
-        this.id = id;
+    @Column(nullable = false)
+    private Long price;
+
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime data;
+
+    public ProductModel() {}
+
+    public ProductModel(String name, Long price) {
         this.name = name;
         this.price = price;
     }
 
+    @PrePersist
+    protected void onCreate() {
+        this.data = LocalDateTime.now();
+    }
+
+    // Getters e Setters
     public Integer getId() {
         return id;
     }
@@ -46,5 +55,13 @@ public class ProductModel {
 
     public void setPrice(Long price) {
         this.price = price;
+    }
+
+    public LocalDateTime getData() {
+        return data;
+    }
+
+    public void setData(LocalDateTime data) {
+        this.data = data;
     }
 }

@@ -71,5 +71,6 @@ public class ProductControl {
         return ResponseEntity.status(HttpStatus.OK).body(productRepository.save(productModel).toString());
     }
 
+
 }
 

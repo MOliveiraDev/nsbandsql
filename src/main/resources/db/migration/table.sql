@@ -3,9 +3,12 @@ SELECT * FROM information_schema.tables WHERE table_name = 'products';
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    price DECIMAL(10,2) NOT NULL
+    price DECIMAL(10,2) NOT NULL,
+    data TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 SELECT * FROM products;
+
+ALTER TABLE products ADD COLUMN Data TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
 
 ALTER SEQUENCE products_id_seq RESTART WITH 1;
 
