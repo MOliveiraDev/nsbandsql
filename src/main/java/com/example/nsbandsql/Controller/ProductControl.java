@@ -70,7 +70,5 @@ public class ProductControl {
         productRepository.save(productModel);
         return ResponseEntity.status(HttpStatus.OK).body(productRepository.save(productModel).toString());
     }
-
-
 }
 
