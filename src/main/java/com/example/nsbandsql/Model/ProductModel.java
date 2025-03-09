@@ -25,6 +25,8 @@ public class ProductModel {
     public ProductModel(String name, Long price) {
         this.name = name;
         this.price = price;
+        this.data = LocalDateTime.now();
+        
     }
 
     @PrePersist
